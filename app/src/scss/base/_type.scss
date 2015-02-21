@@ -1,0 +1,11 @@
+/* Type
+-------------------------------------------------------------- */
+body,
+button,
+input {font:300 $base-font-size $body-font-family, sans-serif;line-height:$base-line-height;color:$body-font-color;}
+
+button,
+.button {display:block;cursor:pointer;background-color:transparent;border:0 none;color:#fff;text-transform:uppercase;font:12px $ui-font-family;text-align:center;
+	&:focus {outline:none;}
+}
+a {text-decoration:none;color:$body-font-color;}

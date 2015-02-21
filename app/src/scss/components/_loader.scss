@@ -1,0 +1,21 @@
+/* Loader
+-------------------------------------------------------------- */
+.no-js:after {content:'Sorry, this app requires javascript';display:block;width:80%;margin:1rem auto;text-align:center;position:relative;font-family:$body-font-family;}
+.loader {height:0;overflow: hidden;position: fixed;width: 100%;top: 90px;text-align: center;
+	svg {
+	  height: 0;
+	}
+	&-animation {position: fixed;top: 110px;left: 50%;margin-left: -12px;
+		path,
+		rect {fill: rgb(255, 255, 255);}
+	}
+	&-status {display: block;;padding-top: .5rem;font-size: .75rem;text-transform: uppercase;color:$primary-color;}
+}
+.loading .loader {height:auto;
+	svg {
+	  height: auto;
+	}
+}
+.no-js {
+	.loader {height:0;}
+}

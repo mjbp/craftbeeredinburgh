@@ -9,6 +9,7 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 		locations,
 		person,
 		trigger,
+		styles,
 		boundary;
 	
 	this.config = {
@@ -18,13 +19,6 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 			{featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
 			{featureType: "landscape.man_made", stylers: [{ visibility: "on" }]},
 			{featureType: "transit", stylers: [{ visibility: "om" }]}
-		],
-		stylesZoomed : [
-			{stylers: [{ visibility: 'on' }, {saturation: -100, hue: '#ff0000' }]},
-			{featureType: 'poi', elementType: 'labels', stylers: [{visibility: 'off'}]},
-			{featureType: 'poi', elementType: 'labels', stylers: [{visibility: 'off'}]},
-			{featureType: 'landscape.man_made', stylers: [{ visibility: 'off'}]},
-			{featureType: 'transit', stylers: [{ visibility: 'off'}]}
 		],
 		markerIcon : {
 			bar : 'assets/img/icon/schooner.svg',
@@ -145,13 +139,11 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 				panControl: false,
 				rotateControl: false,
 				streetViewControl: true,
-				zoomControl: true
+				zoomControl: true,
+			 	styles : this.config.styles
 		 };
 		
 		self.map = new google.maps.Map($window.document.getElementById('map'), mapOptions);
-		self.map.mapTypes.set('CBEMap', new google.maps.StyledMapType(self.config.styles, {name: 'CBEMap'}));
-		self.map.mapTypes.set('CBEMapZoomed', new google.maps.StyledMapType(self.config.stylesZoomed, {name: 'CBEMapZoomed'}));
-		self.map.setMapTypeId('CBEMap');
 		
 		self.setBoundary();
 		
@@ -162,6 +154,7 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 	
 	this.refresh = function(opts) {
 		locations = opts.locations;
+		trigger = opts.trigger || null;
 		self.clearMarkers()
 			.initMarkers()
 			.setBoundary()

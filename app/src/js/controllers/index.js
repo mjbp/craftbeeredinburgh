@@ -46,15 +46,12 @@ var cbeControllers = angular.module('cbeControllers', [])
 					});
 					//sort by distance, ascending
 					locations.sort(function(a,b) { return parseFloat(a.distance) - parseFloat(b.distance); } );
-
 				}
-
 				$scope.locations = locations;
-
 				$scope.loaded.data = true;
 				$scope.loaded.message = '';
 
-				//move into directive
+				//refactor
 				$scope.typeFilterSelect = function(filter) {
 					if (filter === $scope.typeFilter) {
 						$scope.typeFilter = undefined;

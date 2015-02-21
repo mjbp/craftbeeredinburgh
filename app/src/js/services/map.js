@@ -46,7 +46,7 @@ module.factory('Map', ['$q', '$window', function($q, $window) {
 			clickable: (m.type === 'person' ? false : true),
 			infoxBoxData: {
 				name: m.name,
-				url: '/#/location/' + m.id
+				url: '#/location/' + m.id
 			},
 			type: m.type,
 			icon: self.config.markerIcon[m.type]

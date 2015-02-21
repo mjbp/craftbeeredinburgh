@@ -3,7 +3,7 @@
 
 var module = angular.module('map', []);
 
-module.factory('Map', ['$q', '$window', function($q, $window) {
+module.factory('Map', ['$q', '$location', '$window', function($q, $location, $window) {
     var self = this,
 		zoom,
 		locations,
@@ -89,7 +89,8 @@ module.factory('Map', ['$q', '$window', function($q, $window) {
 		if (!!self.infobox) {
 			self.infobox.close(self.map, this);
 		}
-		self.infobox = new InfoBox({content: self.overlay.parseTemplate(this.infoxBoxData),
+		self.infobox = new InfoBox({
+			content: self.overlay.parseTemplate(this.infoxBoxData),
 			disableAutoPan: false,
 			zIndex: null,
 			maxWidth: 0,
@@ -107,7 +108,6 @@ module.factory('Map', ['$q', '$window', function($q, $window) {
          });
 		
 		self.infobox.open(self.map, this);
-
 		google.maps.event.addListener(self.map, 'click', function () {self.infobox.close(self.map, this); });
 	
 	};
@@ -137,7 +137,7 @@ module.factory('Map', ['$q', '$window', function($q, $window) {
 	this.drawMap = function() {
 		 var mapOptions = {
 				mapTypeControlOptions: {
-					mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'ELPMMap']
+					mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'CBEMap']
 				},
 				scaleControl: false,
 				mapTypeControl: false,

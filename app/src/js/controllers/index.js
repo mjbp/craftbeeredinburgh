@@ -98,11 +98,11 @@ var cbeControllers = angular.module('cbeControllers', [])
 	.controller('CbeDetailsController', ['$scope', '$routeParams', function($scope, $routeParams){
 		if($scope.loaded.data) {
 			$scope.location = $scope.locations.filter(function(l) { return l.id === $routeParams.locationId; })[0];
-			$scope.facilities = $scope.location.facilities.split(' ');
+			$scope.facilities = $scope.location.facilities ? $scope.location.facilities.split(' ') : false;
 		} else {
 			$scope.$on('asyncComplete', function() {
 				$scope.location = $scope.locations.filter(function(l) { return l.id === $routeParams.locationId; })[0];
-				$scope.facilities = $scope.location.facilities.split(' ');
+				$scope.facilities = $scope.location.facilities ? $scope.location.facilities.split(' ') : false;
 			});
 		}
 	}])

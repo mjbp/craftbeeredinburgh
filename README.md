@@ -1,5 +1,5 @@
 ##Craft Beer Edinburgh
-A geolocation and mapping web app for craft beer in Edinburgh, designed to be installed to a device home screen. Built in AngularJS, flexbox, SASS, appcache, SVG and GulpJS.
+A geolocation and mapping web app for craft beer in Edinburgh, designed to be installed to a device home screen. Built in AngularJS, flexbox, SASS, appcache, SVG and gulp
 
 ###Compatibility
 Supporting evergreen Chrome desktop and mobile, Firefox desktop and iOS Safari.

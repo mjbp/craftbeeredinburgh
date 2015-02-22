@@ -12,9 +12,11 @@
 .location:nth-child(odd) .location-summary:hover,
 .location:nth-child(odd) .location-summary:focus {background:#fff}
 .location-distance {display:flex;flex:auto 0 0;align-content: center;background:#f0ede8;width:53px;text-align:center;align-items: center;justify-content: center;flex-direction: column;overflow:hidden;
+}
+a.location-distance {
 	&:hover,
 	&:focus {background-color:#fff;background-position:center;transition: background 50ms linear}
 }
 .location-distance-value {font-size:18px;background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%202C8.135%202%205%205.135%205%209c0%205.25%207%2013%207%2013s7-7.75%207-13c0-3.865-3.135-7-7-7zm0%209.5c-1.38%200-2.5-1.12-2.5-2.5s1.12-2.5%202.5-2.5%202.5%201.12%202.5%202.5-1.12%202.5-2.5%202.5z%22/%3E%3C/svg%3E') -200% center no-repeat;}
 .location-distance-unit {display:block;text-transform:uppercase;font-size:12px}
-.location-distance:hover .location-distance-value {text-indent: 100%;background-position:center center;}
+a.location-distance:hover .location-distance-value {text-indent: 100%;background-position:center center;}

@@ -178,17 +178,26 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 			API = 'http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=GoogleMapsAPILoaded',
 			infobox = 'assets/js/infobox/infobox.js',
 			GoogleMapsAPILoaded = function(p) {
-        		appendScript(infobox, function() {
+        		appendScript(infobox, function(err) {
+						if(err) { 
+							deferred.reject(err); 
+							//console.log(err);
+							return;
+						}
 						deferred.resolve($window.google.maps);
 						return deferred.promise;
 					 });
 			},
 			appendScript = function(src, cb) {
-				var script = $window.document.createElement('script');
+				var script = $window.document.createElement('script'),
+					timer = setTimeout(function() {
+						cb('Script ' + src + ' failed to load in time.');
+					}, 5000);
 				script.src = src;
-				if (!!cb) {
-					script.onload = cb;
-				}
+				script.onload = function() {
+					clearTimeout(timer);
+					cb();
+				};
         		$window.document.body.appendChild(script);
 			};
 			
@@ -199,7 +208,12 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
         	self.deferred.resolve($window.google.maps);
           	return self.deferred.promise;
 		}
-        appendScript(API);
+        appendScript(API, function(err) {
+			if(err) { 
+				//console.log(err);
+				deferred.reject(err);
+			}
+		});
 		
 		return deferred.promise;
 	};

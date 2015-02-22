@@ -12,6 +12,7 @@ var cbeControllers = angular.module('cbeControllers', [])
 		$scope.loaded = {
 			data : false,
 			geo : false,
+			map : false,
 			failed : false,
 			message: 'Loading data...'
 		};
@@ -26,7 +27,7 @@ var cbeControllers = angular.module('cbeControllers', [])
 
 			promises.push(Geolocation.getLocation());
 			promises.push(Map.asyncGoogleMapAPI());
-			$scope.loaded.message = 'Finding your location...';
+			$scope.loaded.message = 'Getting geolocation information...';
 			$q.$allSettled(promises).then(function(results) {
 				position = results[0];
 				if (position.coords) {
@@ -47,37 +48,63 @@ var cbeControllers = angular.module('cbeControllers', [])
 					//sort by distance, ascending
 					locations.sort(function(a,b) { return parseFloat(a.distance) - parseFloat(b.distance); } );
 				}
+				$scope.loaded.map = true;
 				$scope.locations = locations;
 				$scope.loaded.data = true;
 				$scope.loaded.message = '';
-
-				//refactor
-				$scope.typeFilterSelect = function(filter) {
-					if (filter === $scope.typeFilter) {
-						$scope.typeFilter = undefined;
-					} else {
-						$scope.typeFilter = filter;
-					}
-				};
-				$scope.toggleFilter = function() {
-					$scope.filterOn = !$scope.filterOn;
-					if (!$scope.filterOn) {
-						$scope.typeFilter = $scope.stringFilter = undefined;
-					}
-				};
-				$scope.filterable = function() {
-					return ($location.path() === '/list' || $location.path() === '/map');
-				};
-
+				
 				$scope.$broadcast('asyncComplete');
 			}, 
 			function(results) { 
-				console.log('allSettled failed'); 
+				//not DRY, refactor
+				position = results[0];
+				if (position.coords) {
+					if(!position.denied) {
+						$scope.loaded.geo = true;
+						$scope.person = {
+							latitude: position.coords.latitude,
+							longitude: position.coords.longitude,
+							type: 'person',
+							id: 'Person'
+						};
+					}
+					//get distance to each location from current position and add to location object
+					locations.map(function(location) { 
+						location.distance = Geolocation.calculateDistance(position.coords, {'latitude': location.latitude, 'longitude' : location.longitude});
+						return location;
+					});
+					//sort by distance, ascending
+					locations.sort(function(a,b) { return parseFloat(a.distance) - parseFloat(b.distance); } );
+				}
+				$scope.loaded.message = 'Geolocation failed. You can still use the list of craft beer bars and off-licenses.';
+				$scope.locations = locations;
+				$scope.loaded.data = true;
+				$scope.loaded.message = '';
 			});
 		}, function(error) {
+			$scope.loaded.message = 'Oops, the data failed to load. Please try again.';
 			$scope.loaded.failed = true;
 		});
+		
+		//refactor this
+		$scope.typeFilterSelect = function(filter) {
+			if (filter === $scope.typeFilter) {
+				$scope.typeFilter = undefined;
+			} else {
+				$scope.typeFilter = filter;
+			}
+		};
+		$scope.toggleFilter = function() {
+			$scope.filterOn = !$scope.filterOn;
+			if (!$scope.filterOn) {
+				$scope.typeFilter = $scope.stringFilter = undefined;
+			}
+		};
+		$scope.filterable = function() {
+			return ($location.path() === '/list' || $location.path() === '/map');
+		};
 
+		
 		$scope.navIsActive = function(path) {
 			return (path === $location.path());
 		};

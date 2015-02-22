@@ -6,10 +6,10 @@
 .detail {
 	[class*='icon-'] {display:block;position:relative;padding:0 0 0 30px;
 		&:before {position:absolute;left:0;background-position:center left;}
-		&:hover {color:rgb(245, 124, 0);}
 	}
 	[class*='icon-website']:before {left:4px;top:-1px}
 }
+a.detail [class*='icon-']:hover {color:rgb(245, 124, 0);} 
 .icon-place:after {content:' (View on map)';font-size:.8rem}
 .detail-taps,
 .detail-facilities {padding-top:1rem}

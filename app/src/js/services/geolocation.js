@@ -5,7 +5,8 @@ var module = angular.module('geolocation', []);
 module.factory('Geolocation', ['$q', '$window', function($q, $window) {
     var self = this,
 		r = 6371000,
-		edinburghCentre = {coords : {latitude: '55.9410655', longitude: '-3.2053836'}, denied: true};
+		edinburghCentre = {coords : {latitude: '55.9410655', longitude: '-3.2053836'}, denied: true},
+		timer;
 	
 	this.deferred = $q.defer();
 	
@@ -15,11 +16,13 @@ module.factory('Geolocation', ['$q', '$window', function($q, $window) {
     };
 
 	this.success = function(position) {
+		clearTimeout(timer);
 		self.deferred.resolve(position);
 	};
 		
 	this.error = function(error) {
-		//self.deferred.reject(error);
+		clearTimeout(timer);
+		//resolve location as the centre of edinbugh
 		self.deferred.resolve(edinburghCentre);
 	};
 	
@@ -29,7 +32,8 @@ module.factory('Geolocation', ['$q', '$window', function($q, $window) {
      */
     this.getLocation = function() {
 		if ($window.navigator && $window.navigator.geolocation) {
-			 $window.navigator.geolocation.getCurrentPosition(self.success, self.error, self.config);
+			timer = setTimeout(self.error, 6000);
+			$window.navigator.geolocation.getCurrentPosition(self.success, self.error, self.config);
 		} else {
 			self.error('Unsupported browser');
 		}

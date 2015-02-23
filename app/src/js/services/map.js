@@ -180,8 +180,7 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
 			GoogleMapsAPILoaded = function(p) {
         		appendScript(infobox, function(err) {
 						if(err) { 
-							deferred.reject(err); 
-							//console.log(err);
+							deferred.reject(err);
 							return;
 						}
 						deferred.resolve($window.google.maps);
@@ -209,8 +208,7 @@ module.factory('Map', ['$q', '$location', '$window', function($q, $location, $wi
           	return self.deferred.promise;
 		}
         appendScript(API, function(err) {
-			if(err) { 
-				//console.log(err);
+			if(err) {
 				deferred.reject(err);
 			}
 		});

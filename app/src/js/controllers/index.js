@@ -2,13 +2,23 @@
 'use strict';
 
 var cbeControllers = angular.module('cbeControllers', [])
-
-	.controller('CbeAppController', ['$scope', '$location', 'Geolocation', '$window', 'DataService', 'Map', '$q', function($scope, $location, Geolocation, $window, DataService, Map, $q) {
+	
+	.controller('CbeAppController', ['$scope', 'Modernizr', '$location', 'Geolocation', '$window', 'DataService', 'Map', '$q', function($scope, Modernizr, $location, Geolocation, $window, DataService, Map, $q) {
+		
+		//Modernizr feature detect
+		 $scope.browser = {
+			flexbox: Modernizr.flexbox,
+			svg: Modernizr.svg
+		};
+		
+		//detect if online
 		if (!navigator.onLine) {
 		  $scope.offline = true;
 		}
+		//are we reloading?
 		$scope.reloading = false;
 		
+		//loading status
 		$scope.loaded = {
 			data : false,
 			geo : false,
@@ -16,15 +26,18 @@ var cbeControllers = angular.module('cbeControllers', [])
 			failed : false,
 			message: 'Loading data...'
 		};
-
+		
+		//initialize filter states
 		$scope.filterOn = false;
 		$scope.stringFilter = '';
 		$scope.typeFilter = '';
 
+		//get data from json source
 		DataService.query(function(locations) {
 			var promises = [],
 				position;
-
+			
+			//get geoloation and google map API
 			promises.push(Geolocation.getLocation());
 			promises.push(Map.asyncGoogleMapAPI());
 			$scope.loaded.message = 'Getting geolocation information...';

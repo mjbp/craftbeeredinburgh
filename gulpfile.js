@@ -19,7 +19,9 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
-var jsSrc = ['app/src/js/angular/angular.js',
+var jsSrc = ['app/src/js/vendor/modernizr.custom.js',
+			 'app/src/js/vendor/fastclick.js',
+			 'app/src/js/angular/angular.js',
 			 'app/src/js/angular/angular-route.js',
 			 'app/src/js/angular/angular-resource.js',
 			 'app/src/js/decorators/index.js',

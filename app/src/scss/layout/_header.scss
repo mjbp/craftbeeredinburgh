@@ -1,7 +1,7 @@
 /* Header
 -------------------------------------------------------------- */
 .banner {background:rgb(245, 124, 0);height:60px;display: flex;align-content: flex-end;opacity:0;}
-.banner-logo {flex-grow: 1;position:relative;
+.banner-logo {flex-grow: 1;position:relative;margin-bottom:0;
 	//&:hover {background:rgb(255, 152, 0);}
 }
 .banner-logo-text {display:block; width:0;height:0;overflow:hidden;
@@ -9,3 +9,7 @@
 	@include mediaquery('480px'){font-size:1.15rem;}
 }
 .loaded-data .banner {opacity:1;}
+.no-flexbox {
+	.banner {display:table;width:100%;}
+	.banner-logo {display:table-cell;}
+}

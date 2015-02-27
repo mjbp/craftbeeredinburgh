@@ -4,3 +4,7 @@ input[type='text'] {border:0 none;height:32px;margin:20px 0 0 12px;border-bottom
 	&:focus {outline:none;border-bottom:1px solid rgb(255,255,255);background-color:rgb(255, 152, 0)}
 }
 @include placeholder(rgba(255, 255, 255, 0.7));
+
+.no-flexbox {
+	input[type='text'] {display:inline-block;}
+}

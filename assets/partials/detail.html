@@ -1,0 +1,23 @@
+		<div class="page-item">
+			<div class="detail">
+				<h1 class="detail-title">{{location.name}}</h1>
+				<div class="detail-address">
+					<a href="#/map/{{location.id}}" class="icon-place">{{location.address}}</a>
+				</div>
+				<div ng-if="loaded.geo && location.distance" class="detail-distance"><a ng-if="loaded.map" href="#/map/{{location.id}}" class="icon-distance">{{location.distance}} Miles</a><div ng-if="!loaded.map" class="icon-distance">{{location.distance}} Miles</div></div>
+				<div ng-if="location.telephone" class="detail-telephone">
+					<a href="tel:+44{{location.telephone | removeWhitepace}}" class="icon-telephone">0{{location.telephone}}</a>
+				</div>
+				<div ng-if="location.website" class="detail-website">
+					<a href="http://{{location.website}}" class="icon-website" target="_blank">{{location.website}}</a>
+				</div>
+				<div ng-if="location.taps" class="detail-taps">
+					<span ng-if="location.taps.cask" class="detail-taps-type">{{location.taps.cask}} cask beers</span>
+					<span ng-if="location.taps.keg" class="detail-taps-type">{{location.taps.keg}} keg beers</span>
+				</div>
+				<div ng-if="location.description.long" class="detail-description">{{location.description.long}}</div>
+				<ul ng-if="location.facilities" class="detail-facilities">
+					<li ng-repeat="facility in facilities" class="icon-{{facility}}">{{facility}}</li>
+				</ul>
+			</div>
+		</div>

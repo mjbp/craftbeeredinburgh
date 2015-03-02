@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+index.html
+assets/js/app.min.js
+assets/js/infobox/infobox.js
+assets/css/styles.min.css
+assets/partials/list.html
+assets/partials/detail.html
+assets/partials/map.html
+assets/data/data.min.json
+favicon.ico
+
+NETWORK:
+*
